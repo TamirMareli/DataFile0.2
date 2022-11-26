@@ -8,7 +8,7 @@ using namespace std;
 const int SIZE = 100;
 const int BK = 1024;
 int DataFile::counter = 0;
-
+using std::ostream;
 
 void DataFile::setData(char* newData)
 {
@@ -144,6 +144,19 @@ const bool DataFile::operator==(const DataFile& other)
 	return false;
 }
 
+const bool DataFile::operator<(const DataFile& other)
+{
+	return (strlen(this->Data) < strlen(other.Data) ? true : false);
+}
 
+const bool DataFile::operator>(const DataFile& other)
+{
+	return (strlen(this->Data) > strlen(other.Data) ? true : false);
+}
 
+ostream& operator<<(ostream& out, const DataFile& d)
+{
+	out << d.getlastUpdateTime() << " " << fixed << setprecision(2) << (float)strlen(d.getData()) / BK << "  KB  " << d.getFileName() << endl;
+	return out;
 
+}
