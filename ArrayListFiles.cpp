@@ -103,13 +103,16 @@ void ArrayListFiles::readAllFiles(const char* o)
 			s[i] = *(ptt++);
 			i++;
 		}
+		s[i] = '\0';
 		temp.setFileName(s);
 		i = 0;//initilize the i to 0
 		while (*(ptt) != '\0') {//copy the data
 			s[i] = *(ptt++);
 			i++;
 		}
+		s[i] = '\0';
 		temp.setData(s);
+		i = 0;//initilize the i to 0
 		this->operator+=(temp);
 	}
 	in.close();

@@ -9,7 +9,7 @@ class DataFile
 	char* Data;
 	double getSize()const { return strlen(this->Data); }
 	static int counter;
-	friend ostream& operator<<(ostream& out, const DataFile& d);
+	
 public:
 	char* getData()const { return Data; }
 	void setData(char* newData);
@@ -26,5 +26,7 @@ public:
 	const bool operator ==(const DataFile& other);
 	const bool operator <(const DataFile& other);
 	const bool operator >(const DataFile& other);
+	friend ostream& operator<<(ostream& out, const DataFile& d);
 	friend class ArrayListFiles;
+	friend class Folder;
 };

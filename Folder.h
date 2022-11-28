@@ -17,5 +17,6 @@ public:
 	Folder();
 	const Folder& operator=(const Folder& o);
 	~Folder();
+	bool  operator==(const Folder& o)const;
 	friend ostream& operator<<(ostream& out, const Folder& f);
 };

@@ -38,6 +38,20 @@ Folder::~Folder()
 	delete[] this->path;
 }
 
+bool  Folder::operator==(const Folder& o)const
+{
+	if (this->alf.counter != o.alf.counter)
+		return false;
+	for (int i = 0; i < this->alf.counter;i++) {
+		for (int j = 0; j < o.alf.counter;j++) {
+			if (!(this->alf.DA[i]->operator==(o.alf.DA[j][0])))
+				return false;
+		}
+	}
+	return true;
+
+}
+
 Folder::Folder(const char* name, const char* path)
 {
 	this->nameFolder = new char[strlen(name) + 1];
@@ -45,11 +59,13 @@ Folder::Folder(const char* name, const char* path)
 	strcpy(this->nameFolder, name);
 	strcpy(this->path, path);
 }
-/*
+
 ostream& operator<<(ostream& out, const Folder& f)
 {
 	out << f.path << "\\" << f.nameFolder << ":" << endl;
-	
-	
+	for (int i = 0; i < f.alf.counter; i++) {
+		operator<<(out,f.alf.DA[i][0]);
+	}
+	return out;
 }
-*/
+
