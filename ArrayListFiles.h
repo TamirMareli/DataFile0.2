@@ -15,4 +15,5 @@ public:
 	~ArrayListFiles();
 	ArrayListFiles& operator+=(const DataFile& o);
 	const int bigFile();
+	void readAllFiles(const char* o);
 };

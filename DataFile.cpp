@@ -123,16 +123,17 @@ DataFile::DataFile(const DataFile& df)
 }
 
 
-const DataFile& DataFile::operator=(const DataFile& other)
+const DataFile& DataFile::operator=(const DataFile& o)
 {
-	delete[] this->Data;
-	delete[] this->FileName;
-	if (this != &other) {
-		this->Data = new char[strlen(other.Data) + 1];
-		this->Data = new char[strlen(other.FileName) + 1];
-		strcpy(this->Data, other.Data);
-		strcpy(this->FileName, other.FileName);
-		this->lastUpdateTime = other.lastUpdateTime;
+	if (this != &o)
+	{
+		delete[] Data;
+		delete[] FileName;
+		Data = new char[strlen(o.getFileName()) + 1];
+		FileName = new char[strlen(o.getData()) + 1];
+		strcpy(this->Data, o.getData());
+		strcpy(this->FileName, o.getFileName());
+		this->lastUpdateTime = o.lastUpdateTime;
 	}
 	return *this;
 }

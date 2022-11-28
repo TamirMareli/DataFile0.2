@@ -5,7 +5,10 @@
 #include <iostream> 
 #include <string>
 #include <crtdbg.h>
+#include<fstream>
 using namespace std;
+const int SIZE = 150;
+const int MOVE = 20;
 
 ArrayListFiles::ArrayListFiles(const ArrayListFiles& o)
 {
@@ -40,17 +43,18 @@ ArrayListFiles& ArrayListFiles::operator+=(const DataFile& o)
 	DataFile** temp = new DataFile * [(this->counter)+1];
 	for (int i = 0; i < this->counter; i++) {
 		temp[i] = new DataFile;
-		temp[i]->operator=(*this->DA[i]);
+		temp[i]=new DataFile(*this->DA[i]);
 		delete this->DA[i];
 	}
-	delete[]this->DA;
+	delete[] this->DA;
+	this->DA = new DataFile*[this->counter + 1];
 	for (int i = 0; i < this->counter; i++) {
 		this->DA[i] = new DataFile;
-		this->DA[i]->operator=(*temp[i]);
+		this->DA[i]=new DataFile(*temp[i]);
 		delete temp[i];
 	}
 	delete[] temp;
-	this->DA[this->counter]->operator=(o);
+	this->DA[this->counter]= new DataFile(o);
 	this->counter++;
 	return *this;
 }
@@ -67,5 +71,47 @@ const int ArrayListFiles::bigFile()
 			iMax = i;
 	}
 	return iMax;
+}
+
+void ArrayListFiles::readAllFiles(const char* o)
+{
+	int i = 0;
+	char s[150];
+	ifstream in(o);
+	char buf[150];
+	char* ptt = buf;
+	DataFile temp = DataFile();
+	while (!in.eof()) {
+		in.getline(buf, 150);
+		tm tm;
+		char* date = strtok(buf, " ");
+		char* time = strtok(NULL, "\n");
+		tm.tm_mday = atoi(strtok(date, "/"));
+		tm.tm_mon = atoi(strtok(NULL, "/"));
+		tm.tm_year = atoi(strtok(NULL, "/"));
+		tm.tm_hour = atoi(strtok(time, ":"));
+		tm.tm_min = atoi(strtok(NULL, ":"));
+		tm.tm_sec = atoi(strtok(NULL, ":"));
+		temp.lastUpdateTime->tm_mday = tm.tm_mday;
+		temp.lastUpdateTime->tm_mon = tm.tm_mon;
+		temp.lastUpdateTime->tm_year = tm.tm_year;
+		temp.lastUpdateTime->tm_hour = tm.tm_hour;
+		temp.lastUpdateTime->tm_min = tm.tm_min;
+		temp.lastUpdateTime->tm_sec = tm.tm_sec;
+		ptt = buf + MOVE;
+		while (*(ptt) != ' ') {//copy the file name
+			s[i] = *(ptt++);
+			i++;
+		}
+		temp.setFileName(s);
+		i = 0;//initilize the i to 0
+		while (*(ptt) != '\0') {//copy the data
+			s[i] = *(ptt++);
+			i++;
+		}
+		temp.setData(s);
+		this->operator+=(temp);
+	}
+	in.close();
 }
 
