@@ -9,12 +9,16 @@
 using std::ostream;
 
 class Folder {
+
 	char* nameFolder;
 	ArrayListFiles alf;
 	char* path;
 public:
+	//ArrayListFiles alf;
+	void seta(const ArrayListFiles& alf) { this->alf = alf; };
 	Folder(const char* name,const char* path);
 	Folder();
+	const ArrayListFiles& getA()const { return this->alf; }
 	const Folder& operator=(const Folder& o);
 	~Folder();
 	bool  operator==(const Folder& o)const;

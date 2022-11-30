@@ -64,7 +64,7 @@ ostream& operator<<(ostream& out, const Folder& f)
 {
 	out << f.path << "\\" << f.nameFolder << ":" << endl;
 	for (int i = 0; i < f.alf.counter; i++) {
-		operator<<(out,f.alf.DA[i][0]);
+		out<<f.alf.DA[i][0] << endl;
 	}
 	return out;
 }

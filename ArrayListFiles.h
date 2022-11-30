@@ -5,6 +5,7 @@
 #include <string>
 #include <crtdbg.h>
 //#include"Folder.h"
+class Folder;
 class ArrayListFiles {
 	DataFile** DA;
 	int counter;
