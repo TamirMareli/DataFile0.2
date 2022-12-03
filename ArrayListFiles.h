@@ -4,7 +4,8 @@
 #include <iostream> 
 #include <string>
 #include <crtdbg.h>
-//#include"Folder.h"
+using namespace std;
+
 class Folder;
 class ArrayListFiles {
 	DataFile** DA;
@@ -17,6 +18,7 @@ public:
 	ArrayListFiles& operator+=(const DataFile& o);
 	const int bigFile();
 	void readAllFiles(const char* o);
+	void printIndex(int i) { cout << this->DA[i][0]; }
 	friend ostream& operator<<(ostream& out, const Folder& f);
 	friend class Folder;
 	
