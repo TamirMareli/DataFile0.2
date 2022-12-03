@@ -40,13 +40,17 @@ Folder::~Folder()
 
 bool  Folder::operator==(const Folder& o)const
 {
+	int chek = 0;
 	if (this->alf.counter != o.alf.counter)
 		return false;
 	for (int i = 0; i < this->alf.counter;i++) {
+		chek = 0;
 		for (int j = 0; j < o.alf.counter;j++) {
-			if (!(this->alf.DA[i]->operator==(o.alf.DA[j][0])))
-				return false;
+			if (this->alf.DA[i]->operator==(o.alf.DA[j][0]))
+				chek=1;
 		}
+		if (chek == 0)
+			return false;
 	}
 	return true;
 
